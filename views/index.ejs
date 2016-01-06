@@ -1,0 +1,404 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <title><%= title %></title>
+
+    <link href="/img/logo.ico" rel="shortcut icon" type="image/x-icon"/>
+
+    <link rel="stylesheet" type="text/css" href="/vendors/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/vendors/font-awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" type="text/css" href="/vendors/animate/animate.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+</head>
+
+<body class="mini-navbar" ms-controller="MainController">
+<div class="wrapper">
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav">
+                <li class="nav-header text-center">
+                    <a href="javascript:;" style="padding: 3px 0 10px">
+                        <img src="/img/logo.png" alt="logo" height="50"/>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="/"><i class="fa fa-line-chart"></i></a>
+                </li>
+                <!--年报/月报-->
+                <!--<li class="">-->
+                    <!--<a href="/report"><i class="fa fa-th-large"></i></a>-->
+                <!--</li>-->
+            </ul>
+        </div>
+    </nav>
+
+    <div id="page-wrapper" class="gray-bg dashboard">
+        <div class="row border-bottom">
+            <nav class="navbar white-bg" role="navigation" style="margin-bottom: 0">
+                <h2 class="m-t m-l-lg" style="font-size:20px">
+                    米印平台数据
+                </h2>
+            </nav>
+        </div>
+        <div class="row m-t-md">
+            <div class="col-sm-12">
+                <div class="box float-e-margins">
+                    <div class="box-title">
+                        <h5>平台数据总览</h5>
+                        <small class="pull-right"><i>数据截止至：{{ new Date() | date('yyyy-MM-dd') }}</i></small>
+                    </div>
+                    <div class="box-content">
+                        <div class="row text-center"
+                             id="splashSummary">
+                            <div class="col-sm-3">
+                                <h1 class="num">
+                                    {{ splashSummary.totalPrintLen | number(2) }}
+                                    <small>米</small>
+                                </h1>
+                                <small>累计打印</small>
+                            </div>
+                            <div class="col-sm-3">
+                                <h1 class="num">
+                                    {{ splashSummary.totalProdOrder }}
+                                    <small>个</small>
+                                </h1>
+                                <small>累计生产单</small>
+                            </div>
+                            <div class="col-sm-3">
+                                <h1 class="num">
+                                    {{ splashSummary.totalSignIn }}
+                                    <small>人</small>
+                                </h1>
+                                <small>累计注册</small>
+                            </div>
+                            <div class="col-sm-3">
+                                <h1 class="num">
+                                    {{ splashSummary.totalIncome / 10000 | number(2) }}
+                                    <small>万元</small>
+                                </h1>
+                                <small>累计收益</small>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row m-t">
+                            <div class="col-sm-12 invest-month-report">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#TotalPrintLen"
+                                                                              aria-controls="TotalPrintLen" role="tab"
+                                                                              data-toggle="tab">打印米数</a></li>
+                                    <li role="presentation"><a href="#TotalSignIn"
+                                                               aria-controls="TotalSignIn" role="tab"
+                                                               data-toggle="tab">注册人数</a></li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="TotalPrintLen">
+                                        <div class="row">
+                                            <div class="echart-chart">
+                                                <div class="echart-chart-content" id="total-printlen"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="TotalSignIn">
+                                        <div class="row">
+                                            <div class="echart-chart">
+                                                <div class="echart-chart-content" id="total-signin"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row m-t-md">
+            <div class="col-sm-12">
+                <div class="box float-e-margins">
+                    <div class="box-title">
+                        <h5>花型数据总览</h5>
+                        <small class="pull-right"><i>数据截止至：{{ new Date() | date('yyyy-MM-dd') }}</i></small>
+                    </div>
+                    <div class="box-content">
+                        <div class="row text-center"
+                             id="splashSummary">
+                            <div class="col-sm-3">
+                                <h1 class="num">
+                                    {{ patternSummary.totalPatternView}}
+                                    <small>次</small>
+                                </h1>
+                                <small>浏览量</small>
+                            </div>
+                            <div class="col-sm-3">
+                                <h1 class="num">
+                                    {{ patternSummary.totalPatternDownload }}
+                                    <small>次</small>
+                                </h1>
+                                <small>下载量</small>
+                            </div>
+                            <div class="col-sm-3">
+                                <h1 class="num">
+                                    {{ patternSummary.totalPatternFavor }}
+                                    <small>次</small>
+                                </h1>
+                                <small>收藏量</small>
+                            </div>
+                            <div class="col-sm-3">
+                                <h1 class="num">
+                                    {{ patternSummary.totalPatternBuy}}
+                                    <small>次</small>
+                                </h1>
+                                <small>直接打印量</small>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row m-t">
+                            <div class="col-sm-12 invest-month-report">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#TotalView"
+                                                                              role="tab"
+                                                                              data-toggle="tab">浏览量</a></li>
+                                    <li role="presentation"><a href="#TotalDownload"
+                                                               role="tab"
+                                                               data-toggle="tab">下载量</a></li>
+                                    <li role="presentation"><a href="#TotalFavor"
+                                                               role="tab"
+                                                               data-toggle="tab">收藏量</a></li>
+                                    <li role="presentation"><a href="#TotalBuy"
+                                                               role="tab"
+                                                               data-toggle="tab">直接打印量</a></li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="TotalView">
+                                        <div class="row">
+                                            <div class="echart-chart">
+                                                <div class="echart-chart-content" id="total-view"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="TotalDownload">
+                                        <div class="row">
+                                            <div class="echart-chart">
+                                                <div class="echart-chart-content" id="total-download"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="TotalFavor">
+                                        <div class="row">
+                                            <div class="echart-chart">
+                                                <div class="echart-chart-content" id="total-favor"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="TotalBuy">
+                                        <div class="row">
+                                            <div class="echart-chart">
+                                                <div class="echart-chart-content" id="total-buy"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row m-t-md">
+            <div class="col-sm-12">
+                <div class="box float-e-margins">
+                    <div class="box-title">
+                        <h5>资讯数据总览</h5>
+                        <small class="pull-right"><i>数据截止至：{{ new Date() | date('yyyy-MM-dd') }}</i></small>
+                    </div>
+                    <div class="box-content">
+                        <div class="row text-center"
+                             id="splashSummary">
+                            <div class="col-sm-3">
+                                <h1 class="num">
+                                    {{ newsSummary.totalNewsView}}
+                                    <small>次</small>
+                                </h1>
+                                <small>浏览量</small>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row m-t">
+                            <div class="col-sm-12 invest-month-report">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#TotalRead"
+                                                                              role="tab"
+                                                                              data-toggle="tab">浏览量</a></li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="TotalRead">
+                                        <div class="row">
+                                            <div class="echart-chart">
+                                                <div class="echart-chart-content" id="total-read"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="box float-e-margins">
+                    <div class="box-title">
+                        <h5>平台7日数据播报</h5>
+                        <small class="pull-right"><i>数据截止至：{{ new Date() | date('yyyy-MM-dd')}}</i></small>
+                    </div>
+                    <div class="box-content">
+                        <div class="row text-center"
+                             id="seven24ysFlash">
+                            <div class="col-sm-3">
+                                <h1 class="num">
+                                    {{ sevenDaysFlash.totalPrintLen }}
+                                </h1>
+                                <small>累计打印（米）</small>
+                            </div>
+                            <div class="col-sm-3">
+                                <h1 class="num">
+                                    {{ sevenDaysFlash.totalSignIn }}
+                                </h1>
+                                <small>注册人数（人）</small>
+                            </div>
+                            <div class="col-sm-3">
+                                <h1 class="num">
+                                    {{ sevenDaysFlash.totalProdOrder }}
+                                </h1>
+                                <small>生产单数/ <span>{{ sevenDaysFlash.totalOrder }} </span> 订单</small>
+                            </div>
+                            <div class="col-sm-3">
+                                <h1 class="num">{{ sevenDaysFlash.totalPlacer }}</h1>
+                                <small>下单数（人）</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!--<div class="col-lg-3 col-sm-6">-->
+                <!--<div class="box float-e-margins">-->
+                    <!--<div class="box-title">-->
+                        <!--<h5>生产单产品分布</h5>-->
+                    <!--</div>-->
+                    <!--<div class="box-content">-->
+                        <!--<div class="echart-chart">-->
+                            <!--<div class="echart-chart-content" id="prodOrderType"></div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-lg-3 col-sm-6">-->
+                <!--<div class="box float-e-margins">-->
+                    <!--<div class="box-title">-->
+                        <!--<h5>定制面料长度分布</h5>-->
+                    <!--</div>-->
+                    <!--<div class="box-content">-->
+                        <!--<div class="echart-chart">-->
+                            <!--<div class="echart-chart-content" id="prodOrderSize"></div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="col-lg-3 col-sm-6">
+                <div class="box float-e-margins">
+                    <div class="box-title">
+                        <h5>注册来源分布</h5>
+                    </div>
+                    <div class="box-content">
+                        <div class="echart-chart">
+                            <div class="echart-chart-content" id="signInActivity"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="box float-e-margins">
+                    <div class="box-title">
+                        <h5>注册身份分布</h5>
+                    </div>
+                    <div class="box-content">
+                        <div class="echart-chart">
+                            <div class="echart-chart-content" id="signInIdentity"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-lg-9 map">
+                <div class="box float-e-margins">
+                    <div class="box-title">
+                        <h5>收货地域分布</h5>
+                        <small class="pull-right"><i>数据截止至：{{new Date() | date('yyyy-MM-dd')}}</i></small>
+                    </div>
+                    <div class="box-content" role="tabpanel">
+                        <!--<ul class="nav nav-tabs" role="tablist" id="MapSwitch">-->
+                            <!--<li role="presentation" class="active"><a href="#AddressRegion"-->
+                                                                      <!--role="tab"-->
+                                                                      <!--data-toggle="tab">收货人</a></li>-->
+                        <!--</ul>-->
+                        <div class="tab-content">
+                            <div role="tabpanel" id="Map">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <table class="table table-hover m-t-lg">
+                                            <thead>
+                                            <tr>
+                                                <th colspan="3">Top 10</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="topTen">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="echart-map">
+                                            <div class="echart-chart-content" id="map-chart"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>
+                Copyright©2013-2016 www.meprint.com ALL rights reserved. 浙ICP备12029195号-5
+            </p>
+        </footer>
+    </div>
+
+</div>
+</body>
+<script type="text/javascript" src="/vendors/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="/vendors/aio_3344c7f.js"></script>
+
+<script type="text/javascript" src="/js/bigpipe.js"></script>
+<!--<script type="text/javascript" src="/js/setting.js"></script>-->
+<script type="text/javascript" src="/avalon.min.js"></script>
+
+<script src="js/chart-helper.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/main.js"></script>
+
+</html>
